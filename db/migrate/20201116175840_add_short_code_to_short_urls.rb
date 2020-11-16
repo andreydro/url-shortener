@@ -1,6 +1,6 @@
 class AddShortCodeToShortUrls < ActiveRecord::Migration[6.0]
   def up
-    add_column :short_urls, :short_code, :string, default: ''
+    add_column :short_urls, :short_code, :string
     add_index :short_urls, :short_code
   end
 

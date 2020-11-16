@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ShortUrl, type: :model do
   describe 'ShortUrl' do
-    let(:short_url) { ShortUrl.create(full_url: "https://www.beenverified.com/faq/") }
+    let(:short_url) { ShortUrl.create(full_url: 'https://www.beenverified.com/faq/') }
 
     it 'finds a short_url with the short_code' do
       expect(ShortUrl.find_by_short_code(short_url.short_code)).to eq short_url
@@ -22,7 +22,7 @@ RSpec.describe ShortUrl, type: :model do
     it 'has an invalid url' do
       short_url.full_url = 'javascript:alert("Hello World");'
       expect(short_url).to_not be_valid
-      expect(short_url.errors[:full_url]).to be_include('is not a valid url')
+      expect(short_url.errors[:full_url]).to be_include('is not a valid URL')
     end
 
     it "doesn't have a short_code" do
@@ -43,9 +43,13 @@ RSpec.describe ShortUrl, type: :model do
       expect(short_url.click_count).to eq 0
     end
 
-    it 'fetches the title' do
-      short_url.update_title!
-      expect(short_url.title).to eq('Frequently Asked Questions | BeenVerified')
+    context 'with new instance' do
+      it 'fetches the title' do
+        expect { short_url }.to have_enqueued_job(UpdateTitleJob)
+        perform_enqueued_jobs
+        short_url.reload
+        expect(short_url.title).to eq('Frequently Asked Questions | BeenVerified')
+      end
     end
 
     context 'with a higher id' do

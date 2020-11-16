@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_11_16_175840) do
     t.integer "click_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "short_code", default: ""
+    t.string "short_code"
     t.index ["full_url"], name: "index_short_urls_on_full_url"
     t.index ["short_code"], name: "index_short_urls_on_short_code"
   end
