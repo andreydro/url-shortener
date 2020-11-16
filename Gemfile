@@ -14,6 +14,7 @@ gem 'jbuilder', '~> 2.7'
 gem "json"
 gem "resque"
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'validate_url'
 
 group :development, :test do
   gem 'rspec-rails'

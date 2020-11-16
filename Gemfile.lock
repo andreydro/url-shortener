@@ -237,6 +237,9 @@ GEM
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.1)
+    validate_url (1.0.13)
+      activemodel (>= 3.0.0)
+      public_suffix
     vegas (0.1.11)
       rack (>= 1.0.0)
     web-console (4.0.1)
@@ -282,6 +285,7 @@ DEPENDENCIES
   selenium-webdriver
   turbolinks (~> 5)
   tzinfo-data
+  validate_url
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 5.2.1)

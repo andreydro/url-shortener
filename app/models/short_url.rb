@@ -1,17 +1,13 @@
-class ShortUrl < ApplicationRecord
+# frozen_string_literal: true
 
+class ShortUrl < ApplicationRecord
   CHARACTERS = [*'0'..'9', *'a'..'z', *'A'..'Z'].freeze
 
-  validate :validate_full_url
+  validates :full_url, presence: true, url: true
 
-  def short_code
-  end
+  after_create :update_title!
 
   def update_title!
-  end
-
-  private
-
-  def validate_full_url
+    UpdateTitleJob.perform_later(id)
   end
 end
