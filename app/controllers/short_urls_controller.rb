@@ -21,19 +21,19 @@ class ShortUrlsController < ApplicationController
       render json: @short_url,
              status: :ok
     else
-      render json: @short_url.errors,
+      render json: { errors: @short_url.errors },
              status: :unprocessable_entity
     end
   end
 
   def show
-    @short_url = ShortUrl.find_by(code: short_url_params[:id])
+    @short_url = ShortUrl.find_by(short_code: short_url_params[:id])
 
     if @short_url
-      @short_url.increment(:click_count)
+      @short_url.increment!(:click_count)
       redirect_to @short_url.full_url
     else
-      render json: @short_url.errors,
+      render json: {},
              status: :not_found
     end
   end
@@ -41,6 +41,6 @@ class ShortUrlsController < ApplicationController
   private
 
   def short_url_params
-    params.require(:short_url).permit(:full_url, :id)
+    params.permit(:full_url, :id)
   end
 end

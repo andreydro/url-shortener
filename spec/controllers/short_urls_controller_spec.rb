@@ -16,7 +16,11 @@ RSpec.describe ShortUrlsController, type: :controller do
     it 'has a list of the top 100 urls' do
       get :index, format: :json
 
-      expect(parsed_response['urls']).to be_include(short_url.public_attributes)
+      expect(parsed_response['urls']).to be_a(Array)
+      expect(parsed_response['urls'].first.keys).to be_include('full_url')
+      expect(parsed_response['urls'].first.keys).to be_include('title')
+      expect(parsed_response['urls'].first.keys).to be_include('click_count')
+      expect(parsed_response['urls'].first.keys).to be_include('short_code')
     end
   end
 
@@ -28,7 +32,8 @@ RSpec.describe ShortUrlsController, type: :controller do
 
     it 'does not create a short_url' do
       post :create, params: { full_url: 'nope!' }, format: :json
-      expect(parsed_response['errors']).to be_include('Full url is not a valid url')
+
+      expect(parsed_response['errors']['full_url']).to be_include('is not a valid URL')
     end
   end
 

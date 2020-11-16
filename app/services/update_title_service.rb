@@ -7,9 +7,6 @@ class UpdateTitleService
 
   def call
     short_url.update!(title: page_title)
-    
-    puts short_url
-    
   end
 
   private
