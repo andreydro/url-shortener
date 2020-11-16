@@ -14,5 +14,4 @@ class ShortUrl < ApplicationRecord
 
   def validate_full_url
   end
-
 end
