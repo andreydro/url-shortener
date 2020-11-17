@@ -13,7 +13,6 @@ class ShortUrl < ApplicationRecord
   end
 
   def generate_short_code
-    # example
-    self.short_code = (0...50).map { CHARACTERS[rand(CHARACTERS.length)] }.join
+    self.short_code = ShortCodeGenerator.new.run
   end
 end
