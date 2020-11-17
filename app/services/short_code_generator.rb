@@ -22,7 +22,11 @@ class ShortCodeGenerator
   end
 
   def short_code_exists?
-    ShortUrl.find_by(short_code: @short_code).present?
+    short_codes.include?(@short_code)
+  end
+
+  def short_codes
+    @short_codes ||= ShortUrl.pluck(:short_code)
   end
 
   def max_length
@@ -32,7 +36,7 @@ class ShortCodeGenerator
   end
 
   def existing_short_urls
-    ShortUrl.count
+    @existing_short_urls ||= ShortUrl.count
   end
 
   def all_size_repeated_combos(number_of_characters)
